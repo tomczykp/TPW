@@ -1,6 +1,4 @@
 .vs
 TestResults
-*.sln
 */bin
 */obj
-*/*.csproj
