@@ -29,6 +29,7 @@
 
         public int Width => this._w;
         public int Height => this._h;
+        public bool Active { get; set; }
         public List<Sphere> Spheres => this._sphere;
 
         public void MakeSpheres(int numSpheres, int rad) {
@@ -52,14 +53,14 @@
 
             Func<int> rad = () => rand.Next(0, (min) / 5);
             Func<int, int, int> cord = (x, r) => rand.Next(r, x - r);
-            Func<int, int> vel = (x) => rand.Next(x) / 10;
+            Func<int, int> vel = (x) => rand.Next(x) / 8;
 
             for (int i = 0; i < numSpheres; i++) {
                 int R = rad();
                 this.Spheres.Add(
                     new Sphere(
                         cord(this._w, R), cord(this._h, R),
-                        R, vel(this._w), vel(this._w)
+                        R, vel(this._w), vel(this._h)
                     )
                 );
             }

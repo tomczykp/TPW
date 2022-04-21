@@ -2,29 +2,28 @@
 using System.Runtime.CompilerServices;
 
 namespace Logic {
-    public class Sphere {
+    public class Sphere : INotifyPropertyChanged {
 
         public event PropertyChangedEventHandler PropertyChanged;
         private int _x;
         private int _y;
         private int _r;
-        private readonly int vx;
-        private readonly int vy;
         private readonly int weight;
 
         public Sphere(int x, int y, int radius, int vx, int vy) {
             this._x = x;
             this._y = y;
             this._r = radius;
-            this.vx = vx;
-            this.vy = vy;
         }
+
+        public int VX { get; set; }
+        public int VY { get; set; }
 
         public int X {
             get => this._x;
             set {
                 this._x = value;
-                this.RaisePropertyChanged("X");
+                this.RaisePropertyChanged(nameof(X));
             }
         }
 
@@ -32,7 +31,7 @@ namespace Logic {
             get => this._y;
             set {
                 this._y = value;
-                this.RaisePropertyChanged("Y");
+                this.RaisePropertyChanged(nameof(Y));
             }
         }
 
@@ -41,7 +40,7 @@ namespace Logic {
             set {
                 if (value > 0) {
                     this._r = value;
-                    this.RaisePropertyChanged("R");
+                    this.RaisePropertyChanged(nameof(R));
                 }
                 else {
                     throw new ArgumentOutOfRangeException();

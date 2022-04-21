@@ -16,25 +16,18 @@ public class Ball : INotifyPropertyChanged {
         s.PropertyChanged += this.update;
     }
 
-    public int R {
-        get => this.r;
-        set {
-            this.r = value;
-            this.RaisePropertyChanged("R");
-        }
-    }
     private void update(object sender, PropertyChangedEventArgs e) {
         Sphere s = (Sphere)sender;
 
         switch (e.PropertyName) {
-            case "X":
+            case nameof(X):
                 this.X = s.X - s.R;
                 break;
-            case "Y":
+            case nameof(Y):
                 this.Y = s.Y - s.R;
                 break;
-            case "R":
-                this.R =s.R;
+            case nameof(R):
+                this.R = s.R;
                 break;
             default:
                 throw new ArgumentException();
@@ -42,18 +35,27 @@ public class Ball : INotifyPropertyChanged {
 
     }
 
+    public int R {
+        get => this.r;
+        set {
+            this.r = value;
+            this.RaisePropertyChanged(nameof(R));
+        }
+    }
+
     public int X {
         get => this.x;
         set {
             this.x = value;
-            this.RaisePropertyChanged("X");
+            this.RaisePropertyChanged(nameof(X));
         }
     }
+
     public int Y {
         get => this.y;
         set {
             this.y = value;
-            this.RaisePropertyChanged("Y");
+            this.RaisePropertyChanged(nameof(Y));
         }
     }
 

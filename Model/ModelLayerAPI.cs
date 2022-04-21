@@ -22,9 +22,8 @@ namespace Presentation.Model {
             private ObservableCollection<Ball> Balls { get; set; }
 
             public ModelAPI(LogicLayerAPI api) : base(api) {
-
+                this.Balls = new ObservableCollection<Ball>();
             }
-
             public override void Init(int n) {
                 this.api.createPlain(700, 400);
                 this.DeployBalls(n);
@@ -35,10 +34,12 @@ namespace Presentation.Model {
             public override void Resume() => this.api.Resume();
 
             public override ObservableCollection<Ball> DeployBalls(int number) {
+                this.api.Make(number);
                 this.Balls.Clear();
-                foreach (Tuple<int, int, int> t in this.api.GetSpheres())
-                    this.Balls.Add(new Ball(t));
 
+                foreach (Sphere s in this.api.GetSpheres())
+                    this.Balls.Add(new Ball(s));
+                
 
                 return this.Balls;
             }

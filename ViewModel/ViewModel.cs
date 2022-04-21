@@ -1,5 +1,6 @@
 ﻿using Presentation.Model;
 using System.Collections;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace Presentation.ViewModel {
@@ -8,7 +9,7 @@ namespace Presentation.ViewModel {
         private readonly int width;
         private readonly int height;
         private readonly ModelLayerAPI api;
-        private IList balls;
+        private ObservableCollection<Ball> balls;
         private int BallNum = 2;
 
         public ViewModelController() : this(ModelLayerAPI.createAPI()) { }
@@ -17,23 +18,17 @@ namespace Presentation.ViewModel {
             this.api = api;
             this.width = api.Width;
             this.height = api.Height;
-            this.Start = new AssignFunc(() => this.StartAction());
+            this.Start = new AssignFunc(() => this.api.Init(this.BallNumber));
             this.Stop = new AssignFunc(() => this.api.Stop());
 
             this.Pause = new AssignFunc(() => this.api.Pause());
             this.Resume = new AssignFunc(() => this.api.Resume());
-
         }
 
         public ICommand Start { get; set; }
         public ICommand Stop { get; set; }
         public ICommand Pause { get; set; }
         public ICommand Resume { get; set; }
-
-        public void StartAction() {
-            this.api.Init(this.BallNumber);
-            this.api.Resume();
-        }
 
         public int Width => this.width;
         public int Height => this.height;
@@ -52,15 +47,14 @@ namespace Presentation.ViewModel {
             }
         }
 
-        public IList Balls {
+        public ObservableCollection<Ball> Balls {
             get => this.balls;
             set {
                 if (value.Equals(this.balls))
                     return;
 
-
                 this.balls = value;
-                this.RaisePropertyChanged("Balls");
+                this.RaisePropertyChanged(nameof(Balls));
             }
         }
 

@@ -3,13 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:Presentation.ViewModel;assembly=Presentation.ViewModel"
-        xmlns:local="clr-namespace:View"
+        xmlns:vms="clr-namespace:Presentation.ViewModel;assembly=Presentation.ViewModel"
+        xmlns:local="clr-namespace:Presentation.View"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
     <Window.DataContext>
-        <vm:ViewModelController />
+        <vms:ViewModelController />
     </Window.DataContext>
 
     <Grid>
@@ -49,11 +49,11 @@
             HorizontalAlignment="Center" VerticalAlignment="Center"
             Padding="15,5,15,5" />
 
-        <ItemsControl ItemsSource="{Binding BallsList}">
+        <ItemsControl ItemsSource="{Binding Balls, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" >
             
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas Background="LightGray" Margin="80,45,0,0" Width="640" Height="360"/>
+                    <Canvas Background="LightGray" Margin="80,45,0,0" Width="640" Height="360" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             
@@ -68,11 +68,11 @@
                 <DataTemplate>
                     <Ellipse Height="{Binding R}" 
                             Width="{Binding R}"
-                            Stroke="Black" Fill="White" />
+                            Stroke="Black" Fill="Blue"></Ellipse>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             
         </ItemsControl>
-        
+                    
     </Grid>
 </Window>
