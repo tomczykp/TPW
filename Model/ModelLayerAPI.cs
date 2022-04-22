@@ -11,25 +11,26 @@ namespace Presentation.Model {
         public abstract void Stop();
         public abstract void Pause();
         public abstract void Resume();
-        public abstract void Init(int number);
+        public abstract ObservableCollection<Ball> Init(int number);
         public abstract ObservableCollection<Ball> DeployBalls(int number);
-
-        public int Width { get; }
-        public int Height { get; }
 
         internal class ModelAPI : ModelLayerAPI {
 
             private ObservableCollection<Ball> Balls { get; set; }
 
-            public ModelAPI(LogicLayerAPI api) : base(api) {
-                this.Balls = new ObservableCollection<Ball>();
-            }
-            public override void Init(int n) {
-                this.api.createPlain(700, 400);
-                this.DeployBalls(n);
+            public ModelAPI(LogicLayerAPI api) : base(api) 
+                => this.Balls = new ObservableCollection<Ball>();
+
+            public override ObservableCollection<Ball> Init(int n) {
+                this.api.createPlain(640, 360);
+                return this.DeployBalls(n);
             }
 
-            public override void Stop() => this.api.Stop();
+            public override void Stop() {
+                this.Balls.Clear();
+                this.api.Stop();
+            }
+
             public override void Pause() => this.api.Pause();
             public override void Resume() => this.api.Resume();
 
@@ -39,7 +40,7 @@ namespace Presentation.Model {
 
                 foreach (Sphere s in this.api.GetSpheres())
                     this.Balls.Add(new Ball(s));
-                
+
 
                 return this.Balls;
             }

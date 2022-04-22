@@ -1,28 +1,24 @@
 ﻿using Presentation.Model;
-using System.Collections;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace Presentation.ViewModel {
     public class ViewModelController : ViewModelBase {
 
-        private readonly int width;
-        private readonly int height;
         private readonly ModelLayerAPI api;
         private ObservableCollection<Ball> balls;
-        private int BallNum = 2;
+        private int BallNum = 7;
 
         public ViewModelController() : this(ModelLayerAPI.createAPI()) { }
 
         public ViewModelController(ModelLayerAPI api) {
             this.api = api;
-            this.width = api.Width;
-            this.height = api.Height;
-            this.Start = new AssignFunc(() => this.api.Init(this.BallNumber));
+            this.Start = new AssignFunc(() => this.Init());
             this.Stop = new AssignFunc(() => this.api.Stop());
 
             this.Pause = new AssignFunc(() => this.api.Pause());
             this.Resume = new AssignFunc(() => this.api.Resume());
+           
         }
 
         public ICommand Start { get; set; }
@@ -30,8 +26,9 @@ namespace Presentation.ViewModel {
         public ICommand Pause { get; set; }
         public ICommand Resume { get; set; }
 
-        public int Width => this.width;
-        public int Height => this.height;
+        private void Init() {
+            this.Balls = this.api.Init(this.BallNumber);
+        }
 
         public int BallNumber {
             get => this.BallNum;
@@ -43,7 +40,7 @@ namespace Presentation.ViewModel {
                     value = 0;
 
                 this.BallNum = value;
-                this.RaisePropertyChanged("BallNumber");
+                this.RaisePropertyChanged(nameof(this.BallNumber));
             }
         }
 
@@ -54,7 +51,7 @@ namespace Presentation.ViewModel {
                     return;
 
                 this.balls = value;
-                this.RaisePropertyChanged(nameof(Balls));
+                this.RaisePropertyChanged(nameof(this.Balls));
             }
         }
 

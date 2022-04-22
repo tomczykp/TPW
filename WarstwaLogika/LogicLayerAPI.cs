@@ -25,10 +25,10 @@ namespace Logic {
 
             }
 
-            public override void createPlain(int w, int h) 
+            public override void createPlain(int w, int h)
                 => this.plain = new Plain(w, h);
 
-            public override List<Sphere> GetSpheres() 
+            public override List<Sphere> GetSpheres()
                 => this.plain.Spheres;
 
             public override void Make(int num) {
@@ -38,23 +38,26 @@ namespace Logic {
                 foreach (Sphere s in this.plain.Spheres) {
                     Thread t = new Thread(() => {
                         Random random = new Random();
-                        while (this.plain.Active) {
+                        while (true) {
 
-                            if (s.X + s.VX < this.plain.Width)
-                                s.VX *= -1;
+                            if (this.plain.Active) {
+                                if (s.X + s.VX + s.R > this.plain.Width || s.X + s.VX < 0)
+                                    s.VX *= -1;
 
-                            if (s.Y + s.VY < this.plain.Height)
-                                s.VY *= -1;
+                                if (s.Y + s.VY + s.R > this.plain.Height || s.Y + s.VY < 0)
+                                    s.VY *= -1;
 
-                            s.X += s.VX;
-                            s.Y += s.VY;
-                            Thread.Sleep(5);
+                                s.X += s.VX;
+                                s.Y += s.VY;
+                            }
+                            Thread.Sleep(20);
                         }
+
                     });
                     t.Start();
                 }
             }
-            
+
 
             public override void Pause() {
                 if (!this.inited) return;
@@ -69,9 +72,9 @@ namespace Logic {
 
 
             public override void Stop() {
-                Console.WriteLine("Stop");
                 this.plain.Active = false;
                 this.inited = false;
+                this.plain.Spheres.Clear();
             }
 
 

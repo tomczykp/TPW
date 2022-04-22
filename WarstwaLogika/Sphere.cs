@@ -14,6 +14,8 @@ namespace Logic {
             this._x = x;
             this._y = y;
             this._r = radius;
+            this.VX = vx;
+            this.VY = vy;
         }
 
         public int VX { get; set; }
@@ -23,7 +25,7 @@ namespace Logic {
             get => this._x;
             set {
                 this._x = value;
-                this.RaisePropertyChanged(nameof(X));
+                this.RaisePropertyChanged(nameof(this.X));
             }
         }
 
@@ -31,7 +33,7 @@ namespace Logic {
             get => this._y;
             set {
                 this._y = value;
-                this.RaisePropertyChanged(nameof(Y));
+                this.RaisePropertyChanged(nameof(this.Y));
             }
         }
 
@@ -40,7 +42,7 @@ namespace Logic {
             set {
                 if (value > 0) {
                     this._r = value;
-                    this.RaisePropertyChanged(nameof(R));
+                    this.RaisePropertyChanged(nameof(this.R));
                 }
                 else {
                     throw new ArgumentOutOfRangeException();

@@ -20,13 +20,13 @@ public class Ball : INotifyPropertyChanged {
         Sphere s = (Sphere)sender;
 
         switch (e.PropertyName) {
-            case nameof(X):
-                this.X = s.X - s.R;
+            case nameof(this.X):
+                this.X = s.X;
                 break;
-            case nameof(Y):
-                this.Y = s.Y - s.R;
+            case nameof(this.Y):
+                this.Y = s.Y;
                 break;
-            case nameof(R):
+            case nameof(this.R):
                 this.R = s.R;
                 break;
             default:
@@ -39,7 +39,7 @@ public class Ball : INotifyPropertyChanged {
         get => this.r;
         set {
             this.r = value;
-            this.RaisePropertyChanged(nameof(R));
+            this.RaisePropertyChanged(nameof(this.R));
         }
     }
 
@@ -47,7 +47,7 @@ public class Ball : INotifyPropertyChanged {
         get => this.x;
         set {
             this.x = value;
-            this.RaisePropertyChanged(nameof(X));
+            this.RaisePropertyChanged(nameof(this.X));
         }
     }
 
@@ -55,7 +55,7 @@ public class Ball : INotifyPropertyChanged {
         get => this.y;
         set {
             this.y = value;
-            this.RaisePropertyChanged(nameof(Y));
+            this.RaisePropertyChanged(nameof(this.Y));
         }
     }
 

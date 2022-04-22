@@ -1,18 +1,37 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Logic;
+using System;
 
 namespace TestyJednostkowe {
     [TestClass]
     public class PlainTest {
 
         [TestMethod]
-        public void MakeSphereTest() {
+        public void Test1() {
+            LogicLayerAPI api = LogicLayerAPI.createAPI();
+            Assert.ThrowsException<NullReferenceException>(
+                () => api.GetSpheres());
+
+            api.createPlain(10, 10);
+            api.Make(10);
 
         }
 
+
         [TestMethod]
-        public void ConstructorTest() {
+        public void Test2() {
+            LogicLayerAPI api = LogicLayerAPI.createAPI();
+            Assert.ThrowsException<NullReferenceException>(
+                () => api.Make(10));
 
+            Assert.ThrowsException<ArgumentOutOfRangeException>(
+                () => api.createPlain(-10, 10));
 
+            Assert.ThrowsException<ArgumentOutOfRangeException>(
+                () => api.createPlain(10, -10));
+
+            Assert.ThrowsException<ArgumentOutOfRangeException>(
+                () => api.createPlain(0, 0));
         }
 
     }
