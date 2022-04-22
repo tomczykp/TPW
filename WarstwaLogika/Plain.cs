@@ -40,7 +40,7 @@
 
             Random r = new Random();
             Func<int, int> cord = (x) => r.Next(rad, x - rad);
-            Func<int, int> vel = (x) => (r.Next(x) / 10) + 1;
+            Func<int, int> vel = (x) => r.Next(1, x/10);
 
             for (int i = 0; i < numSpheres; i++) {
                 this.Spheres.Add(new Sphere(cord(this._w), cord(this._h), rad, vel(this._w), vel(this._w)));
@@ -53,7 +53,7 @@
 
             Func<int> rad = () => rand.Next(0, (min) / 5);
             Func<int, int, int> cord = (x, r) => rand.Next(r, x - r);
-            Func<int> vel = () => rand.Next(8);
+            Func<int> vel = () => rand.Next(1, 8);
 
             for (int i = 0; i < numSpheres; i++) {
                 int R = rad();
