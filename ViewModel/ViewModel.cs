@@ -18,7 +18,7 @@ namespace Presentation.ViewModel {
 
             this.Pause = new AssignFunc(() => this.api.Pause());
             this.Resume = new AssignFunc(() => this.api.Resume());
-           
+
         }
 
         public ICommand Start { get; set; }
@@ -26,9 +26,7 @@ namespace Presentation.ViewModel {
         public ICommand Pause { get; set; }
         public ICommand Resume { get; set; }
 
-        private void Init() {
-            this.Balls = this.api.Init(this.BallNumber);
-        }
+        private void Init() => this.Balls = this.api.Init(this.BallNumber);
 
         public int BallNumber {
             get => this.BallNum;

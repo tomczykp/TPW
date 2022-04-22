@@ -18,7 +18,7 @@ namespace Presentation.Model {
 
             private ObservableCollection<Ball> Balls { get; set; }
 
-            public ModelAPI(LogicLayerAPI api) : base(api) 
+            public ModelAPI(LogicLayerAPI api) : base(api)
                 => this.Balls = new ObservableCollection<Ball>();
 
             public override ObservableCollection<Ball> Init(int n) {

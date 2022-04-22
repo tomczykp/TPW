@@ -1,5 +1,5 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Logic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 namespace TestyJednostkowe {
@@ -15,6 +15,7 @@ namespace TestyJednostkowe {
             api.createPlain(10, 10);
             api.Make(10);
 
+            Assert.AreEqual(10, api.GetSpheres().Count);
         }
 
 
