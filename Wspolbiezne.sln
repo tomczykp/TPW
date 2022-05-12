@@ -3,20 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestsLogic", "TestyJednostkowe\TestsLogic.csproj", "{49C64A37-8FA7-4412-B64B-F9093A1536DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestsLogic", "TestsLogic\TestsLogic.csproj", "{49C64A37-8FA7-4412-B64B-F9093A1536DD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "WarstwaDane\Data.csproj", "{EE77958F-E495-4593-9190-9B2643B9292C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic", "WarstwaLogika\Logic.csproj", "{6C874A0C-9031-409D-A1BE-A75ECD758CD6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestsData", "TestyDanych\TestsData.csproj", "{7C7B4B67-C0B2-49EA-855E-1AA610F75494}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestsData", "TestsData\TestsData.csproj", "{7C7B4B67-C0B2-49EA-855E-1AA610F75494}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{A66BFC7B-BB1D-411A-8C8E-C80E00AD2FC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{A66BFC7B-BB1D-411A-8C8E-C80E00AD2FC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "ViewModel\ViewModel.csproj", "{55408B73-895A-4422-AD86-DF730AC80926}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModel", "ViewModel\ViewModel.csproj", "{55408B73-895A-4422-AD86-DF730AC80926}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View", "View\View.csproj", "{A0456105-BEFB-4CE6-BF1E-918F87CAA0C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View", "View\View.csproj", "{A0456105-BEFB-4CE6-BF1E-918F87CAA0C8}"
 EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +52,10 @@ Global
 		{A0456105-BEFB-4CE6-BF1E-918F87CAA0C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0456105-BEFB-4CE6-BF1E-918F87CAA0C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0456105-BEFB-4CE6-BF1E-918F87CAA0C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{404AFD35-990B-4C87-A1D9-B290BFBBB632}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{404AFD35-990B-4C87-A1D9-B290BFBBB632}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{404AFD35-990B-4C87-A1D9-B290BFBBB632}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{404AFD35-990B-4C87-A1D9-B290BFBBB632}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,14 +8,14 @@ public class Ball : INotifyPropertyChanged {
     private int x;
     private int y;
     private int r;
-    private String color;
+    private readonly string color;
 
     internal Ball(Sphere s) {
         this.x = s.X;
         this.y = s.Y;
         this.r = s.R;
         Random random = new Random();
-        this.color = String.Format("#{0:X6}", random.Next(0x1000000));
+        this.color = string.Format("#{0:X6}", random.Next(0x1000000));
         s.PropertyChanged += this.update;
     }
 
@@ -38,7 +38,7 @@ public class Ball : INotifyPropertyChanged {
 
     }
 
-    public String Color { get => this.color; }
+    public string Color => this.color;
 
     public int R {
         get => this.r;

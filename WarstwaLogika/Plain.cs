@@ -40,7 +40,7 @@
 
             Random r = new Random();
             Func<int, int> cord = (x) => r.Next(rad, x - rad);
-            Func<int, int> vel = (x) => r.Next(1, x/10);
+            Func<int, int> vel = (x) => r.Next(1, x / 10);
 
             for (int i = 0; i < numSpheres; i++) {
                 this.Spheres.Add(new Sphere(cord(this._w), cord(this._h), rad, vel(this._w), vel(this._w)));
