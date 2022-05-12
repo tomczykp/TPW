@@ -15,10 +15,10 @@ namespace Data {
             Random rand = new Random();
             int min = Math.Min(this.Width, this.Height);
 
-            Func<double> rad = () => 1 + rand.NextDouble() * (min) / 10;
+            Func<double> rad = () => 2 + (rand.NextDouble() * (min) / 10);
             Func<double, double, int> cord = (x, r) => rand.Next((int)r, (int)(x - r));
             Func<double> vel = () => 1+rand.NextDouble()*3;
-            Func<double> mass = () => 1+rand.NextDouble()*5;
+            Func<double> mass = () => 1+rand.NextDouble()*9;
 
             for (int i = 0; i < num; i++) {
                 double R;

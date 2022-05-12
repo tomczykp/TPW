@@ -50,8 +50,8 @@ public abstract class LogicLayerAPI {
                 if (s.Equals(S))
                     continue;
 
-                double dx = s.X - S.X;
-                double dy = s.Y - S.Y;
+                double dx = s.X + s.VX - S.X - S.VX;
+                double dy = s.Y + s.VY - S.Y - S.VY;
                 if (Math.Sqrt((dx * dx) + (dy * dy)) < (S.R + s.R)) {
                     double V1x = S.VX;
                     double V1y = S.VY;
@@ -60,6 +60,7 @@ public abstract class LogicLayerAPI {
 
                     S.VX = ((S.Weight - s.Weight) * V1x + (2 * s.Weight * v2x)) / (S.Weight + s.Weight);
                     s.VX = ((s.Weight - S.Weight) * v2x + (2 * S.Weight * V1x)) / (S.Weight + s.Weight);
+                    
 
                     S.VY = ((S.Weight - s.Weight) * V1y + (2 * s.Weight * v2y)) / (S.Weight + s.Weight);
                     s.VY = ((s.Weight - S.Weight) * v2y + (2 * S.Weight * V1y)) / (S.Weight + s.Weight);
