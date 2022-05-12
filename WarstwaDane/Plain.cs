@@ -1,22 +1,24 @@
-﻿namespace Data {
+﻿using System.Collections.ObjectModel;
+
+namespace Data {
     internal class Plain {
 
 
         public Plain(int width, int height, int num) {
-            if (width <= 0 || height <= 0) {
+            if (width <= 0 || height <= 0)
                 throw new ArgumentOutOfRangeException();
-            }
+            
 
             this.Width = width;
             this.Height = height;
-            this.Spheres = new List<SphereData> ();
+            this.Spheres = new ObservableCollection<SphereData> ();
             Random rand = new Random();
             int min = Math.Min(this.Width, this.Height);
 
-            Func<double> rad = () => rand.NextDouble()* (min) / 5;
+            Func<double> rad = () => 1 + rand.NextDouble() * (min) / 10;
             Func<double, double, int> cord = (x, r) => rand.Next((int)r, (int)(x - r));
-            Func<double> vel = () => 8*rand.NextDouble()+1;
-            Func<double> mass = () => 1;
+            Func<double> vel = () => 1+rand.NextDouble()*3;
+            Func<double> mass = () => 1+rand.NextDouble()*5;
 
             for (int i = 0; i < num; i++) {
                 double R;
@@ -44,7 +46,7 @@
 
         public int Width { get; }
         public int Height { get; }
-        public List<SphereData> Spheres { get; set; }
+        public ObservableCollection<SphereData> Spheres { get; set; }
 
         
 

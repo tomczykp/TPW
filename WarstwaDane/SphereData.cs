@@ -57,8 +57,10 @@ public class SphereData {
         }
     }
 
+
     public double Weight { get; }
 
     protected virtual void RaisePropertyChanged([CallerMemberName] string? propertyName = null) => this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    public override bool Equals(object? obj) => obj is SphereData data && this.X == data.X && this.Y == data.Y && this.R == data.R && this.Weight == data.Weight;
 }
 
