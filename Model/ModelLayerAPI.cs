@@ -11,19 +11,20 @@ namespace Presentation.Model {
         public abstract void Stop();
         public abstract void Pause();
         public abstract void Resume();
-        public abstract ObservableCollection<Ball> Init(int number);
-        public abstract ObservableCollection<Ball> DeployBalls(int number);
+        public abstract ObservableCollection<SphereModel> Init(int number);
+        public abstract ObservableCollection<SphereModel> DeployBalls();
 
         internal class ModelAPI : ModelLayerAPI {
 
-            private ObservableCollection<Ball> Balls { get; set; }
+            private ObservableCollection<SphereModel> Balls { get; set; }
 
             public ModelAPI(LogicLayerAPI api) : base(api)
-                => this.Balls = new ObservableCollection<Ball>();
+                => this.Balls = new ObservableCollection<SphereModel>();
 
-            public override ObservableCollection<Ball> Init(int n) {
-                this.api.createPlain(640, 360);
-                return this.DeployBalls(n);
+            public override ObservableCollection<SphereModel> Init(int n) {
+                this.api.Start(n);
+                this.Balls.Clear();
+                return this.DeployBalls();
             }
 
             public override void Stop() {
@@ -34,13 +35,10 @@ namespace Presentation.Model {
             public override void Pause() => this.api.Pause();
             public override void Resume() => this.api.Resume();
 
-            public override ObservableCollection<Ball> DeployBalls(int number) {
-                this.api.Make(number);
-                this.Balls.Clear();
-
-                foreach (Sphere s in this.api.GetSpheres())
-                    this.Balls.Add(new Ball(s));
-
+            public override ObservableCollection<SphereModel> DeployBalls() {
+                
+                foreach (SphereLogic s in this.api.GetSpheres())
+                    this.Balls.Add(new SphereModel(s));
 
                 return this.Balls;
             }

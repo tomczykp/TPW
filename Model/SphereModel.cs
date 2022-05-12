@@ -3,14 +3,14 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Presentation.Model;
-public class Ball : INotifyPropertyChanged {
+public class SphereModel : INotifyPropertyChanged {
 
-    private int x;
-    private int y;
-    private int r;
+    private double x;
+    private double y;
+    private double r;
     private readonly string color;
 
-    internal Ball(Sphere s) {
+    internal SphereModel(SphereLogic s) {
         this.x = s.X;
         this.y = s.Y;
         this.r = s.R;
@@ -20,7 +20,7 @@ public class Ball : INotifyPropertyChanged {
     }
 
     private void update(object sender, PropertyChangedEventArgs e) {
-        Sphere s = (Sphere)sender;
+        SphereLogic s = (SphereLogic)sender;
 
         switch (e.PropertyName) {
             case nameof(this.X):
@@ -40,7 +40,7 @@ public class Ball : INotifyPropertyChanged {
 
     public string Color => this.color;
 
-    public int R {
+    public double R {
         get => this.r;
         set {
             this.r = value;
@@ -48,7 +48,7 @@ public class Ball : INotifyPropertyChanged {
         }
     }
 
-    public int X {
+    public double X {
         get => this.x;
         set {
             this.x = value;
@@ -56,7 +56,7 @@ public class Ball : INotifyPropertyChanged {
         }
     }
 
-    public int Y {
+    public double Y {
         get => this.y;
         set {
             this.y = value;

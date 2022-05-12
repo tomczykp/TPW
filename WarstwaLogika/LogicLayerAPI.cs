@@ -1,85 +1,90 @@
 ﻿using Data;
+using System.ComponentModel;
 
-namespace Logic {
-    public abstract class LogicLayerAPI {
+namespace Logic;
+public abstract class LogicLayerAPI {
 
-        private readonly DataLayerAPI dataAPI;
+    private readonly DataLayerAPI api;
 
-        public static LogicLayerAPI createAPI(DataLayerAPI? api = null) => new LogicAPI(api);
+    public static LogicLayerAPI createAPI() => new LogicAPI(DataLayerAPI.createAPI());
 
-        public LogicLayerAPI(DataLayerAPI api) => this.dataAPI = api;
+    public LogicLayerAPI(DataLayerAPI api) {
+        this.Spheres = new List<SphereLogic>();
+        this.api = api;
+    }
 
-        public abstract void createPlain(int w, int h);
-        public abstract void Stop();
-        public abstract void Pause();
-        public abstract void Resume();
-        public abstract void Make(int num);
+    public abstract void Stop();
+    public abstract void Pause();
+    public abstract void Resume();
+    public abstract void Start(int num);
 
-        public abstract List<Sphere> GetSpheres();
+    public abstract List<SphereLogic> GetSpheres();
+    public List<SphereLogic> Spheres { get; set; }
 
-        internal class LogicAPI : LogicLayerAPI {
-            private Plain plain;
-            private bool inited;
+    internal class LogicAPI : LogicLayerAPI {
+        public LogicAPI(DataLayerAPI api) : base(api) { }
 
-            public LogicAPI(DataLayerAPI api) : base(api) {
+        public override List<SphereLogic> GetSpheres()
+            => this.Spheres;
 
+        public override void Start(int num) {
+
+            foreach (SphereData s in this.api.Init(num)) {
+                this.Spheres.Add(new SphereLogic(s));
+                s.PropertyChanged += this.update;
             }
+        }
 
-            public override void createPlain(int w, int h)
-                => this.plain = new Plain(w, h);
+        private void EdgeCollision(SphereData s) {
+            if (s.X + s.VX + s.R > this.api.Width || s.X + s.VX < 0)
+                s.VX *= -1;
 
-            public override List<Sphere> GetSpheres()
-                => this.plain.Spheres;
+            if (s.Y + s.VY + s.R > this.api.Height || s.Y + s.VY < 0)
+                s.VY *= -1;
+        }
 
-            public override void Make(int num) {
-                this.inited = true;
-                this.plain.Active = true;
-                this.plain.MakeSpheres(num);
-                foreach (Sphere s in this.plain.Spheres) {
-                    Thread t = new Thread(() => {
-                        Random random = new Random();
-                        while (true) {
+        private void SphereCollision(SphereData S) {
+            foreach (SphereData s in this.api.Spheres) {
+                if (s == S)
+                    continue;
 
-                            if (this.plain.Active) {
-                                if (s.X + s.VX + s.R > this.plain.Width || s.X + s.VX < 0)
-                                    s.VX *= -1;
+                double dx = s.X - S.X;
+                double dy = s.Y - S.Y;
+                double d = Math.Sqrt((dx * dx) + (dy * dy));
+                if (d <= (S.R*0.9 + s.R*0.9)) {
+                    double V1x = S.VX;
+                    double V1y = S.VY;
+                    double v2x = s.VX;
+                    double v2y = s.VY;
 
-                                if (s.Y + s.VY + s.R > this.plain.Height || s.Y + s.VY < 0)
-                                    s.VY *= -1;
+                    S.VX = ((S.Weight - s.Weight) * V1x + (2 * s.Weight * v2x)) / (S.Weight + s.Weight);
+                    s.VX = ((S.Weight - s.Weight) * v2x + (2 * S.Weight * V1x)) / (S.Weight + s.Weight);
 
-                                s.X += s.VX;
-                                s.Y += s.VY;
-                            }
-                            Thread.Sleep(20);
-                        }
-
-                    });
-                    t.Start();
+                    S.VY = ((S.Weight - s.Weight) * V1y + (2 * s.Weight * v2y)) / (S.Weight + s.Weight);
+                    s.VY = ((S.Weight - s.Weight) * v2y + (2 * S.Weight * V1y)) / (S.Weight + s.Weight);
                 }
             }
-
-
-            public override void Pause() {
-                if (!this.inited) return;
-                this.plain.Active = false;
-            }
-
-
-            public override void Resume() {
-                if (!this.inited) return;
-                this.plain.Active = true;
-            }
-
-
-            public override void Stop() {
-                this.plain.Active = false;
-                this.inited = false;
-                this.plain.Spheres.Clear();
-            }
-
-
         }
 
 
+        public override void Pause() => this.api.Pause();
+        public override void Resume() => this.api.Resume();
+        public override void Stop() {
+            this.Spheres.Clear();
+            this.api.Stop();
+        }
+          
+
+        private void update(object sender, PropertyChangedEventArgs e) {
+            SphereData ball = (SphereData)sender;
+            if (e.PropertyName == "Position") {
+                this.EdgeCollision(ball);
+                this.SphereCollision(ball);
+            }
+
+        }
     }
+
+
 }
+
