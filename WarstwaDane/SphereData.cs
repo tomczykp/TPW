@@ -19,10 +19,12 @@ public class SphereData {
         this.Weight = weight;
     }
 
-    public void Move() {
+    public void Move(object locked) {
         this.X += this.VX;
         this.Y += this.VY;
-        this.RaisePropertyChanged("Position");
+        lock (locked) {
+            this.RaisePropertyChanged("Position");
+        }
     }
 
     public double VX { get; set; }

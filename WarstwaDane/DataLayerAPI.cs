@@ -22,18 +22,16 @@ namespace Data {
 
         internal sealed class DataAPI : DataLayerAPI {
             private object locked = new object();
-            private object barrier = new object();
-            private Boolean Active { get; set; }
-            private int QueueCnt;
+            private bool Active { get; set; }
             private Plain Plain { get; set; }
             private List<Task> Tasks { get; set; }
+            private Logger logger;
 
             public DataAPI() : base() {
                 this.Active = false;
-                this.QueueCnt = 0;
                 this.Tasks = new List<Task>();
-                
             }
+
             public override ObservableCollection<SphereData> Spheres {
                 get => this.Plain.Spheres;
                 set => this.Plain.Spheres = value;
@@ -41,15 +39,14 @@ namespace Data {
 
             public override ObservableCollection<SphereData> Init(int num) {
                 this.Tasks.Clear();
-                locked = new object();
-                barrier = new object();
+                this.Active = false;
+                this.locked = new object();
                 this.Active = true;
                 this.Plain = new Plain(this.Width, this.Height, num);
+                this.logger = new Logger(this.Spheres);
 
-                foreach (SphereData ball in this.Spheres) {
+                foreach (SphereData ball in this.Spheres)
                     this.Tasks.Add(Task.Run(() => this.run(ball)));
-                    
-                }
 
                 return this.Spheres;
             }
@@ -57,16 +54,14 @@ namespace Data {
             private async void run(SphereData ball) {
                 while (this.Active) {
 
-                    lock (this.locked) {
-                        ball.Move();
-                    }
+                    ball.Move(this.locked);
 
                     await Task.Delay(20);
                 }
             }
 
-            public override void Pause() { 
-            
+            public override void Pause() {
+
             }
 
             public override void Resume() {
@@ -76,10 +71,9 @@ namespace Data {
             public override void Stop() {
                 this.Spheres.Clear();
                 this.Tasks.Clear();
-                locked = new object();
-                barrier = new object();
-                
-                
+                this.locked = new object();
+                this.logger.stop();
+
                 this.Active = false;
             }
 

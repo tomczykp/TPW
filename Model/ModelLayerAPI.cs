@@ -36,7 +36,7 @@ namespace Presentation.Model {
             public override void Resume() => this.api.Resume();
 
             public override ObservableCollection<SphereModel> DeployBalls() {
-                
+
                 foreach (SphereLogic s in this.api.GetSpheres())
                     this.Balls.Add(new SphereModel(s));
 
