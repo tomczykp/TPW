@@ -30,5 +30,15 @@ namespace TestyJednostkowe {
                 Assert.IsTrue((s.Weight <= 10 && s.Weight >= 1));
         }
 
+
+        [TestMethod]
+        public void Test4() {
+            DataLayerAPI api = DataLayerAPI.createAPI();
+            api.Init(3);
+
+            Assert.AreEqual(api.Spheres.Count, 3);
+            foreach (SphereData s in api.Spheres)
+                Assert.IsTrue((s.Weight <= 10 && s.Weight >= 1));
+        }
     }
 }

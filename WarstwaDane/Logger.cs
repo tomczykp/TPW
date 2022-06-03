@@ -17,7 +17,7 @@ internal class Logger {
                 if (this.watch.ElapsedMilliseconds >= 5) {
                     this.watch.Restart();
                     using (StreamWriter writer = new StreamWriter(Directory.GetCurrentDirectory() + "\\log.txt", true)) {
-                        string stamp = "INFO [" + DateTime.Now.ToString("yyyy-MM-dd: HH:mm:ss.fffff") + "]:\n";
+                        string stamp = "INFO [" + DateTime.Now.ToString("yyyy-MM-dd: HH:mm:ss.fffffff") + "]:\n";
 
                         foreach (SphereData s in balls) {
                             writer.WriteLine(stamp + JsonSerializer.Serialize(s, options));
